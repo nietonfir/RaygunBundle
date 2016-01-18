@@ -1,0 +1,43 @@
+{
+    "name": "nietonfir/raygun-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle for integrating mindscape/raygun4php",
+    "keywords": [
+        "raygun",
+        "errors",
+        "exceptions",
+        "logging"
+    ],
+    "homepage": "https://github.com/Nietonfir/RaygunBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name"    : "nietonfir",
+            "email"   : "nietonfir@gmail.com",
+            "homepage": "https://nietonfir.eu",
+            "role"    : "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/config": "~2.8|~3.0",
+        "symfony/framework-bundle": "~2.8|~3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": { "Nietonfir\\RaygunBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Nietonfir\\RaygunBundle\\Tests\\": "Tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
