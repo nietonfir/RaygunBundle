@@ -22,6 +22,9 @@ class NietonfirRaygunExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        // set the Raygun API key
+        $container->setParameter('nietonfir_raygun.api_key', $config['api_key']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }
