@@ -26,6 +26,24 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($config['debug_mode']);
     }
 
+    public function testDebugModeSet()
+    {
+        $key = '1234567';
+
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'debug_mode' => true
+            )
+        );
+        $config = $this->process($configs);
+
+        $this->assertArrayHasKey('async', $config);
+        $this->assertArrayHasKey('debug_mode', $config);
+        $this->assertFalse($config['async']);
+        $this->assertTrue($config['debug_mode']);
+    }
+
     /**
      * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */

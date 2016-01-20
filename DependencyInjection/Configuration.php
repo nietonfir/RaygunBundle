@@ -26,12 +26,16 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end() // api_key
-                ->booleanNode('debug_mode')
-                    ->defaultFalse()
-                ->end() // debug_mode
                 ->booleanNode('async')
                     ->defaultTrue()
                 ->end() // async
+                ->booleanNode('debug_mode')
+                    ->defaultFalse()
+                ->end() // debug_mode
+            ->end()
+            ->validate()
+                ->ifTrue(function($v){return $v['debug_mode'];})
+                ->then(function($v){$v['async'] = false;return $v;})
             ->end();
 
         return $treeBuilder;
