@@ -19,7 +19,23 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $this->process($configs);
 
         $this->assertArrayHasKey('api_key', $config);
+        $this->assertArrayHasKey('async', $config);
         $this->assertEquals($key, $config['api_key']);
+        $this->assertTrue($config['async']);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testInvalidConfig()
+    {
+        $configs = array(
+            array(
+                'api_key' => null,
+                'async' => 'blub'
+            )
+        );
+        $config = $this->process($configs);
     }
 
     /**

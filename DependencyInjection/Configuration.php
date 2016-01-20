@@ -26,6 +26,9 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end() // api_key
+                ->booleanNode('async')
+                    ->defaultTrue()
+                ->end() // async
             ->end();
 
         return $treeBuilder;
