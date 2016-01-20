@@ -20,8 +20,10 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey('api_key', $config);
         $this->assertArrayHasKey('async', $config);
+        $this->assertArrayHasKey('debug_mode', $config);
         $this->assertEquals($key, $config['api_key']);
         $this->assertTrue($config['async']);
+        $this->assertFalse($config['debug_mode']);
     }
 
     /**
@@ -32,7 +34,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $configs = array(
             array(
                 'api_key' => null,
-                'async' => 'blub'
+                'async' => 'blub',
+                'debug_mode' => 'blub'
             )
         );
         $config = $this->process($configs);

@@ -26,6 +26,9 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end() // api_key
+                ->booleanNode('debug_mode')
+                    ->defaultFalse()
+                ->end() // debug_mode
                 ->booleanNode('async')
                     ->defaultTrue()
                 ->end() // async
