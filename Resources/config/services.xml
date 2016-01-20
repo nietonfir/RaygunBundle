@@ -4,13 +4,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
+    <parameters>
+        <parameter key="raygun.client.class">Raygun4php\RaygunClient</parameter>
+    </parameters>
+
     <services>
-        <service id="nietonfir_raygun.example" class="Nietonfir\RaygunBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="raygun.client" alias="nietonfir_raygun.client" />
+
+        <service id="nietonfir_raygun.client" class="%raygun.client.class%" public="false">
+            <argument>%nietonfir_raygun.api_key%</argument>
+            <argument>true</argument> <!-- useAsyncSending -->
+            <argument>false</argument> <!-- debugMode -->
         </service>
     </services>
-    -->
 </container>
