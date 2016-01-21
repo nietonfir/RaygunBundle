@@ -13,8 +13,8 @@
 
         <service id="nietonfir_raygun.client" class="%raygun.client.class%" public="false">
             <argument>%nietonfir_raygun.api_key%</argument>
-            <argument>true</argument> <!-- useAsyncSending -->
-            <argument>false</argument> <!-- debugMode -->
+            <argument>%nietonfir_raygun.async%</argument>
+            <argument>%nietonfir_raygun.debug_mode%</argument>
         </service>
     </services>
 </container>
