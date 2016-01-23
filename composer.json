@@ -22,6 +22,7 @@
         "php": ">=5.5.9",
         "symfony/config": "~2.8|~3.0",
         "symfony/framework-bundle": "~2.8|~3.0",
+        "monolog/monolog": "~1.8",
         "mindscape/raygun4php": "dev-master"
     },
     "require-dev": {
@@ -34,7 +35,10 @@
         "psr-4": { "Nietonfir\\RaygunBundle\\": "" }
     },
     "autoload-dev": {
-        "psr-4": { "Nietonfir\\RaygunBundle\\Tests\\": "Tests/" }
+        "psr-4": {
+            "Monolog\\" : "vendor/monolog/monolog/tests/Monolog/",
+            "Nietonfir\\RaygunBundle\\Tests\\": "Tests/"
+        }
     },
     "extra": {
         "branch-alias": {
