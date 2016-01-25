@@ -6,15 +6,25 @@
 
     <parameters>
         <parameter key="raygun.client.class">Raygun4php\RaygunClient</parameter>
+        <parameter key="nietonfir_raygun.monolog_handler.class">Nietonfir\RaygunBundle\Monolog\Handler\RaygunHandler</parameter>
+
+        <parameter key="nietonfir_raygun.monolog_handler.level" type="constant">Monolog\Logger::ERROR</parameter>
     </parameters>
 
     <services>
         <service id="raygun.client" alias="nietonfir_raygun.client" />
+        <service id="raygun.handler" alias="nietonfir_raygun.monolog_handler" />
 
         <service id="nietonfir_raygun.client" class="%raygun.client.class%" public="false">
             <argument>%nietonfir_raygun.api_key%</argument>
             <argument>%nietonfir_raygun.async%</argument>
             <argument>%nietonfir_raygun.debug_mode%</argument>
+        </service>
+
+        <service id="nietonfir_raygun.monolog_handler" class="%nietonfir_raygun.monolog_handler.class%" public="false">
+            <argument type="service" id="nietonfir_raygun.client" />
+            <argument>%nietonfir_raygun.monolog_handler.level%</argument>
+            <argument>true</argument>
         </service>
     </services>
 </container>
