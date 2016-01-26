@@ -23,6 +23,7 @@
         "symfony/config": "~2.8|~3.0",
         "symfony/framework-bundle": "~2.8|~3.0",
         "monolog/monolog": "~1.8",
+        "twig/twig": "~1.23|~2.0",
         "mindscape/raygun4php": "dev-master"
     },
     "require-dev": {
