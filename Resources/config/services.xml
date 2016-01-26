@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="raygun.client.class">Raygun4php\RaygunClient</parameter>
         <parameter key="nietonfir_raygun.monolog_handler.class">Nietonfir\RaygunBundle\Monolog\Handler\RaygunHandler</parameter>
+        <parameter key="nietonfir_raygun.twig_extension.class">Nietonfir\RaygunBundle\Twig\RaygunSetupExtension</parameter>
 
         <parameter key="nietonfir_raygun.monolog_handler.level" type="constant">Monolog\Logger::ERROR</parameter>
     </parameters>
@@ -25,6 +26,11 @@
             <argument type="service" id="nietonfir_raygun.client" />
             <argument>%nietonfir_raygun.monolog_handler.level%</argument>
             <argument>true</argument>
+        </service>
+
+        <service id="nietonfir_raygun.twig_extension" class="%nietonfir_raygun.twig_extension.class%" public="false">
+            <argument>%nietonfir_raygun.api_key%</argument>
+            <tag name="twig.extension" />
         </service>
     </services>
 </container>
