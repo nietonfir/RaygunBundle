@@ -5,7 +5,7 @@ RaygunBundle
 [Raygun4js](https://github.com/MindscapeHQ/raygun4js) is a is a [Raygun.io](https://raygun.io) plugin for JavaScript.
 This bundle registers the library with the framework and provides a twig template for the plugin.
 
-[![License](https://poser.pugx.org/nietonfir/raygun-bundle/license.svg)](https://github.com/Nietonfir/RaygunBundle)
+[![Latest Stable Version](https://poser.pugx.org/nietonfir/raygun-bundle/v/stable.svg)](https://packagist.org/packages/nietonfir/raygun-bundle) [![Latest Unstable Version](https://poser.pugx.org/nietonfir/raygun-bundle/v/unstable.svg)](https://packagist.org/packages/nietonfir/raygun-bundle) [![License](https://poser.pugx.org/nietonfir/raygun-bundle/license.svg)](https://github.com/Nietonfir/RaygunBundle/blob/master/LICENSE)
 
 Installation
 ------------
@@ -65,3 +65,18 @@ monolog:
             action_level: error
             handler:      nested
 ```
+
+To use the [JavaScript client](https://raygun.io/docs/languages/javascript) include the bundled views in your template at their designated places according to the raygun documentation. [`NietonfirRaygunBundle:Static:raygun-js.html.twig`](Resources/views/Static/raygun-js.html.twig) provides the javascript client and [`NietonfirRaygunBundle::setup.html.twig`](Resources/views/setup.html.twig) configures it, e.g.:
+
+```twig
+{# snip #}
+{% include 'NietonfirRaygunBundle:Static:raygun-js.html.twig' %}
+</head>
+<body>
+
+{# snip #}
+{% include 'NietonfirRaygunBundle::setup.html.twig' %}
+</body>
+```
+
+If you wish to override any part of the templates you can use the default Symfony mechanisms. A global twig parameter (`raygun_api_key`) is exposed by a custom `Twig_Extension` that provides the API key.
