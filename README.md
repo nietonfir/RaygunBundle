@@ -51,7 +51,7 @@ $bundles = [
 Basic Usage
 -----------
 
-Register the raygun monolog handler in `config_prod.yml` as first monolog handler.
+Register the raygun monolog handler in `config_prod.yml` as the first monolog handler.
 
 ```yaml
 # app/config/config_prod.yaml
