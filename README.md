@@ -13,10 +13,8 @@ Installation
 Install the latest version with
 
 ```
-$ composer require nietonfir/raygun-bundle mindscape/raygun4php
+$ composer require nietonfir/raygun-bundle
 ```
-
-Requiring the raygun library is essential since no stable version is currently available.
 
 Configuration
 -------------
