@@ -78,3 +78,8 @@ To use the [JavaScript client](https://raygun.io/docs/languages/javascript) incl
 ```
 
 If you wish to override any part of the templates you can use the default Symfony mechanisms. A global twig parameter (`raygun_api_key`) is exposed by a custom `Twig_Extension` that provides the API key.
+Raygun pulse can be enabled by either setting or passing a truthy variable named `enable_pulse` to the template:
+
+```twig
+{% include 'NietonfirRaygunBundle::setup.html.twig' with {'enable_pulse': true} only %}
+```
