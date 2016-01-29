@@ -2,7 +2,7 @@
 <script type="text/javascript">
   rg4js('apiKey', '{{ raygun_api_key }}');
   rg4js('enableCrashReporting', true);
-  {% if enable_pulse|default(false) == true %}
+  {% if enable_pulse|default(false) %}
     rg4js('attach', true);
     rg4js('enablePulse', true);
   {% endif %}
