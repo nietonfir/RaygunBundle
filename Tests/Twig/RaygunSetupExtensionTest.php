@@ -43,7 +43,9 @@ class RaygunSetupExtensionTest extends \PHPUnit_Framework_TestCase
 
         $twig = new \Twig_Environment($this->getMock('Twig_LoaderInterface'));
         $twig->addExtension(new RaygunSetupExtension($apiKey));
-        $this->assertArrayHasKey('raygun_api_key', $twig->getGlobals());
-        $this->assertEquals($apiKey, $twig->getGlobals()['raygun_api_key']);
+        $globals = $twig->getGlobals();
+        
+        $this->assertArrayHasKey('raygun_api_key', $globals);
+        $this->assertEquals($apiKey, $globals['raygun_api_key']);
     }
 }
