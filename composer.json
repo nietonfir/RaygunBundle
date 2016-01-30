@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.3.9",
         "symfony/config": "~2.7|~3.0",
         "symfony/dependency-injection": "~2.7|~3.0",
         "symfony/http-kernel": "~2.7|~3.0",
