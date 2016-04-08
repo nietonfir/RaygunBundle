@@ -38,6 +38,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('async')
                     ->defaultTrue()
                 ->end() // async
+                ->booleanNode('track_users')
+                    ->defaultTrue()
+                ->end() // track_users
                 ->booleanNode('debug_mode')
                     ->defaultFalse()
                 ->end() // debug_mode

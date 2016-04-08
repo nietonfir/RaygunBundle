@@ -35,6 +35,7 @@ class NietonfirRaygunExtension extends Extension
         $container->setParameter('nietonfir_raygun.api_key', $config['api_key']);
         $container->setParameter('nietonfir_raygun.async', $config['async']);
         $container->setParameter('nietonfir_raygun.debug_mode', $config['debug_mode']);
+        $container->setParameter('nietonfir_raygun.disable_user_tracking', !$config['track_users']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');

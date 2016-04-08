@@ -30,9 +30,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('api_key', $config);
         $this->assertArrayHasKey('async', $config);
         $this->assertArrayHasKey('debug_mode', $config);
+        $this->assertArrayHasKey('track_users', $config);
         $this->assertEquals($key, $config['api_key']);
         $this->assertTrue($config['async']);
         $this->assertFalse($config['debug_mode']);
+        $this->assertTrue($config['track_users']);
     }
 
     public function testDebugModeSet()
@@ -53,6 +55,22 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($config['debug_mode']);
     }
 
+    public function testDisableUserTracking()
+    {
+    	$key = '1234567';
+    
+    	$configs = array(
+    			array(
+    					'api_key' => $key,
+    					'track_users' => false
+    			)
+    	);
+    	$config = $this->process($configs);
+    
+    	$this->assertArrayHasKey('track_users', $config);
+    	$this->assertFalse($config['track_users']);
+    }
+        
     /**
      * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
