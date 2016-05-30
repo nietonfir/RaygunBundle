@@ -46,7 +46,7 @@ class NietonfirRaygunExtension extends Extension
     {
         if ($config['ignore_404']) {
             $handlerDefinition = $container->getDefinition('nietonfir_raygun.monolog_handler');
-            $handlerDefinition->addMethodCall('setIgnore404', [true]);
+            $handlerDefinition->addMethodCall('setIgnore404', array(true));
         }
     }
 }
