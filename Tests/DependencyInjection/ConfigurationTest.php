@@ -30,9 +30,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('api_key', $config);
         $this->assertArrayHasKey('async', $config);
         $this->assertArrayHasKey('debug_mode', $config);
+        $this->assertArrayHasKey('ignore_404', $config);
         $this->assertEquals($key, $config['api_key']);
         $this->assertTrue($config['async']);
         $this->assertFalse($config['debug_mode']);
+        $this->assertFalse($config['ignore_404']);
     }
 
     public function testDebugModeSet()
@@ -51,6 +53,22 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('debug_mode', $config);
         $this->assertFalse($config['async']);
         $this->assertTrue($config['debug_mode']);
+    }
+
+    public function testIgnore404ModeSet()
+    {
+        $key = '1234567';
+
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'ignore_404' => true
+            )
+        );
+        $config = $this->process($configs);
+
+        $this->assertArrayHasKey('ignore_404', $config);
+        $this->assertTrue($config['ignore_404']);
     }
 
     /**
