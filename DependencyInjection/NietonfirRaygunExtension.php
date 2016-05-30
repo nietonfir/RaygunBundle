@@ -38,5 +38,15 @@ class NietonfirRaygunExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $this->configureHandler($config, $container);
+    }
+
+    protected function configureHandler(array $config, ContainerBuilder $container)
+    {
+        if ($config['ignore_404']) {
+            $handlerDefinition = $container->getDefinition('nietonfir_raygun.monolog_handler');
+            $handlerDefinition->addMethodCall('setIgnore404', [true]);
+        }
     }
 }
