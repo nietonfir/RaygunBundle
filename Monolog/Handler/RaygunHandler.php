@@ -15,6 +15,7 @@ use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Raygun4php\RaygunClient;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RaygunHandler extends AbstractProcessingHandler
 {
@@ -62,6 +63,10 @@ class RaygunHandler extends AbstractProcessingHandler
         $exception = isset($ctx['exception']) ? $ctx['exception'] : false;
 
         if ($exception) {
+            if ($this->ignore404 && $exception instanceof NotFoundHttpException) {
+                return;
+            }
+
             $this->client->sendException($exception);
         } else {
             $this->client->sendError($record['level'], $record['message'], $ctx['file'], $ctx['line']);
