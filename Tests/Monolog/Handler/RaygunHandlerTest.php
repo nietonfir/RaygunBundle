@@ -65,4 +65,18 @@ class RaygunHandlerTest extends TestCase
         $handler = new RaygunHandler($this->client);
         $handler->handle($record);
     }
+
+    public function testIgnore404()
+    {
+        $exceptionMock = $this->getMock('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+
+        $record = $this->getRecord(Logger::CRITICAL, 'test', array('exception' => $exceptionMock));
+
+        $this->client->expects($this->never())
+            ->method('sendException');
+
+        $handler = new RaygunHandler($this->client);
+        $handler->setIgnore404(true);
+        $handler->handle($record);
+    }
 }
