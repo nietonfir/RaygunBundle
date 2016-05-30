@@ -21,6 +21,11 @@ class RaygunHandler extends AbstractProcessingHandler
     protected $client;
 
     /**
+     * @var bool
+     */
+    private $ignore404 = false;
+
+    /**
      * @param RaygunClient $client The Raygun.io client responsible for sending errors/exceptions to Raygun
      * @param int          $level  The minimum logging level at which this handler will be triggered
      * @param Boolean      $bubble Whether the messages that are handled can bubble up the stack or not
@@ -30,6 +35,22 @@ class RaygunHandler extends AbstractProcessingHandler
         $this->client = $client;
 
         parent::__construct($level, $bubble);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIgnore404()
+    {
+        return $this->ignore404;
+    }
+
+    /**
+     * @param bool $ignore404
+     */
+    public function setIgnore404($ignore404)
+    {
+        $this->ignore404 = (bool)$ignore404;
     }
 
     /**
