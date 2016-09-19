@@ -20,7 +20,7 @@
             <argument>%nietonfir_raygun.api_key%</argument>
             <argument>%nietonfir_raygun.async%</argument>
             <argument>%nietonfir_raygun.debug_mode%</argument>
-            <argument>%nietonfir_raygun.track_users%</argument>
+            <argument>%nietonfir_raygun.disable_user_tracking%</argument>
         </service>
 
         <service id="nietonfir_raygun.monolog_handler" class="%nietonfir_raygun.monolog_handler.class%" public="false">
