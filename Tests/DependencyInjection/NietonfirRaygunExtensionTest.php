@@ -33,6 +33,7 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('1234567', 'nietonfir_raygun.api_key');
         $this->assertParameter(true, 'nietonfir_raygun.async');
         $this->assertParameter(false, 'nietonfir_raygun.debug_mode');
+        $this->assertParameter(false, 'nietonfir_raygun.disable_user_tracking');
         $this->assertHasDefinition('nietonfir_raygun.monolog_handler');
         $this->assertHasDefinition('nietonfir_raygun.twig_extension');
     }
@@ -49,6 +50,7 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('987655', 'nietonfir_raygun.api_key');
         $this->assertParameter(false, 'nietonfir_raygun.async');
         $this->assertParameter(true, 'nietonfir_raygun.debug_mode');
+        $this->assertParameter(true, 'nietonfir_raygun.disable_user_tracking');
         $this->assertHasDefinition('nietonfir_raygun.monolog_handler');
         $this->assertHasDefinition('nietonfir_raygun.twig_extension');
     }
@@ -78,6 +80,7 @@ EOF;
 api_key: 987655
 async: false
 debug_mode: true
+track_users: false
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);
