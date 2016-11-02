@@ -53,6 +53,7 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(true, 'nietonfir_raygun.disable_user_tracking');
         $this->assertHasDefinition('nietonfir_raygun.monolog_handler');
         $this->assertHasDefinition('nietonfir_raygun.twig_extension');
+        $this->assertHasCall('nietonfir_raygun.monolog_handler', 'setIgnore404');
     }
 
     /**
@@ -81,6 +82,7 @@ api_key: 987655
 async: false
 debug_mode: true
 track_users: false
+ignore_404: true
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);
@@ -110,6 +112,12 @@ EOF;
     private function assertHasDefinition($id)
     {
         $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
+    }
+
+    private function assertHasCall($id, $method)
+    {
+        $definition = $this->configuration->getDefinition($id);
+        $this->assertTrue($definition->hasMethodCall($method));
     }
 
     protected function tearDown()

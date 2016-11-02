@@ -83,3 +83,15 @@ Raygun pulse can be enabled by either setting or passing a truthy variable named
 ```twig
 {% include 'NietonfirRaygunBundle::setup.html.twig' with {'enable_pulse': true} only %}
 ```
+
+Configuration Reference
+-----------------------
+
+```yaml
+# app/config/config.yml
+nietonfir_raygun:
+    api_key: %raygun_api_key% # Your Raygun API key, available under "Application Settings" in your Raygun account.
+    async: true               # Sets the [async configuration option](https://github.com/MindscapeHQ/raygun4php#sending-method---asyncsync) on the Raygun client.
+    debug_mode: false         # Sets the [debug configuration option](https://github.com/MindscapeHQ/raygun4php#debug-mode) on the Raygun client.
+    ignore_404: false         # Whether to send 404 exceptions (NotFoundHttpException) to Raygun
+```
