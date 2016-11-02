@@ -39,14 +39,6 @@ class RaygunHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return bool
-     */
-    public function isIgnore404()
-    {
-        return $this->ignore404;
-    }
-
-    /**
      * @param bool $ignore404
      */
     public function setIgnore404($ignore404)
