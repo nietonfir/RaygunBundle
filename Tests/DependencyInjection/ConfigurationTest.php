@@ -31,10 +31,12 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('async', $config);
         $this->assertArrayHasKey('debug_mode', $config);
         $this->assertArrayHasKey('track_users', $config);
+        $this->assertArrayHasKey('ignore_404', $config);
         $this->assertEquals($key, $config['api_key']);
         $this->assertTrue($config['async']);
         $this->assertFalse($config['debug_mode']);
         $this->assertTrue($config['track_users']);
+        $this->assertFalse($config['ignore_404']);
     }
 
     public function testDebugModeSet()
@@ -58,7 +60,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testDisableUserTracking()
     {
     	$key = '1234567';
-    
+
     	$configs = array(
     			array(
     					'api_key' => $key,
@@ -66,11 +68,27 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     			)
     	);
     	$config = $this->process($configs);
-    
+
     	$this->assertArrayHasKey('track_users', $config);
     	$this->assertFalse($config['track_users']);
     }
-        
+
+    public function testIgnore404ModeSet()
+    {
+        $key = '1234567';
+
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'ignore_404' => true
+            )
+        );
+        $config = $this->process($configs);
+
+        $this->assertArrayHasKey('ignore_404', $config);
+        $this->assertTrue($config['ignore_404']);
+    }
+
     /**
      * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
