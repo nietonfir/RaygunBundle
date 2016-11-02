@@ -59,18 +59,18 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function testDisableUserTracking()
     {
-    	$key = '1234567';
+        $key = '1234567';
 
-    	$configs = array(
-    			array(
-    					'api_key' => $key,
-    					'track_users' => false
-    			)
-    	);
-    	$config = $this->process($configs);
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'track_users' => false
+            )
+        );
+        $config = $this->process($configs);
 
-    	$this->assertArrayHasKey('track_users', $config);
-    	$this->assertFalse($config['track_users']);
+        $this->assertArrayHasKey('track_users', $config);
+        $this->assertFalse($config['track_users']);
     }
 
     public function testIgnore404ModeSet()
