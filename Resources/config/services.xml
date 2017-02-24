@@ -9,7 +9,7 @@
         <parameter key="nietonfir_raygun.monolog_handler.class">Nietonfir\RaygunBundle\Monolog\Handler\RaygunHandler</parameter>
         <parameter key="nietonfir_raygun.twig_extension.class">Nietonfir\RaygunBundle\Twig\RaygunSetupExtension</parameter>
         <parameter key="nietonfir_raygun.app_version"></parameter>
-        <parameter key="nietonfir_raygun.tags"></parameter>
+        <parameter key="nietonfir_raygun.tags" type="collection">null</parameter>
         <parameter key="nietonfir_raygun.monolog_handler.level" type="constant">Monolog\Logger::ERROR</parameter>
     </parameters>
 

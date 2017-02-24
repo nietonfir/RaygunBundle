@@ -23,6 +23,10 @@ class Client extends RaygunClient
 
     public function setDefaultTags(array $tags)
     {
+        if (0 == count($tags)) {
+            $this->defaultTags = null;
+        }
+
         $this->defaultTags = $tags;
     }
 
