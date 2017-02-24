@@ -24,7 +24,7 @@ class RaygunHandler extends AbstractProcessingHandler
     /**
      * @var bool
      */
-    private $ignore404 = false;
+    private $ignoreHttpExceptions = false;
 
     /**
      * @param RaygunClient $client The Raygun.io client responsible for sending errors/exceptions to Raygun
@@ -35,17 +35,15 @@ class RaygunHandler extends AbstractProcessingHandler
     {
         $this->client = $client;
 
-        $this->client->SetVersion($version);
-
         parent::__construct($level, $bubble);
     }
 
     /**
-     * @param bool $ignore404
+     * @param bool $ignoreHttpExceptions
      */
-    public function setIgnore404($ignore404)
+    public function setIgnoreHttpExceptions($ignoreHttpExceptions)
     {
-        $this->ignore404 = (bool) $ignore404;
+        $this->ignoreHttpExceptions = (bool) $ignoreHttpExceptions;
     }
 
     /**
@@ -57,7 +55,7 @@ class RaygunHandler extends AbstractProcessingHandler
         $exception = isset($ctx['exception']) ? $ctx['exception'] : false;
 
         if ($exception) {
-            if ($this->ignore404 && $exception instanceof NotFoundHttpException) {
+            if ($this->ignoreHttpExceptions && get_class($exception) == 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException') {
                 return;
             }
 

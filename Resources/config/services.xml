@@ -8,8 +8,8 @@
         <parameter key="raygun.client.class">Nietonfir\RaygunBundle\Services\Client</parameter>
         <parameter key="nietonfir_raygun.monolog_handler.class">Nietonfir\RaygunBundle\Monolog\Handler\RaygunHandler</parameter>
         <parameter key="nietonfir_raygun.twig_extension.class">Nietonfir\RaygunBundle\Twig\RaygunSetupExtension</parameter>
-        <parameter key="nietonfir_raygun.app_version">prova</parameter>
-
+        <parameter key="nietonfir_raygun.app_version"></parameter>
+        <parameter key="nietonfir_raygun.tags"></parameter>
         <parameter key="nietonfir_raygun.monolog_handler.level" type="constant">Monolog\Logger::ERROR</parameter>
     </parameters>
 
@@ -26,6 +26,12 @@
             <call method="setVersion">
                 <argument>%nietonfir_raygun.app_version%</argument>
             </call>
+
+            <call method="setDefaultTags">
+                <argument>%nietonfir_raygun.tags%</argument>
+            </call>
+
+
         </service>
 
         <service id="nietonfir_raygun.monolog_handler" class="%nietonfir_raygun.monolog_handler.class%" public="false">

@@ -44,9 +44,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('debug_mode')
                     ->defaultFalse()
                 ->end() // debug_mode
-                ->booleanNode('ignore_404')
+                ->booleanNode('ignore_http_exceptions')
                     ->defaultFalse()
-                ->end() // ignore_404
+                ->end() // ignore_http_exceptions
             ->end()
             ->validate()
                 ->ifTrue(function($v){return $v['debug_mode'];})
