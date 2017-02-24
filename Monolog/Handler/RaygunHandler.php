@@ -31,9 +31,11 @@ class RaygunHandler extends AbstractProcessingHandler
      * @param int          $level  The minimum logging level at which this handler will be triggered
      * @param Boolean      $bubble Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct(RaygunClient $client, $level = Logger::ERROR, $bubble = true)
+    public function __construct(RaygunClient $client, $level = Logger::ERROR, $bubble = true, $version = null)
     {
         $this->client = $client;
+
+        $this->client->SetVersion($version);
 
         parent::__construct($level, $bubble);
     }

@@ -1,5 +1,5 @@
 <?php
-namespace Nietonfir\RaygunBundle\Monolog\Handler;
+namespace Nietonfir\RaygunBundle\Services;
 
 use Raygun4php\RaygunClient;
 
@@ -10,7 +10,11 @@ class Client extends RaygunClient
     public function setDefaultTags(array $tags)
     {
         $this->defaultTags = $tags;
-        //this is a commit tetst
+    }
+
+    public function setVersion($version)
+    {
+        parent::SetVersion($version);
     }
 
     public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
