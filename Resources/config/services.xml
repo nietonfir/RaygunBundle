@@ -25,7 +25,7 @@
         </service>
 
         <service id="nietonfir_raygun.monolog_handler" class="%nietonfir_raygun.monolog_handler.class%" public="false">
-            <argument type="service" id="belka.container_support_bundle.raygun_client" />
+            <argument type="service" id="nietonfir_raygun.client" />
             <argument>%nietonfir_raygun.monolog_handler.level%</argument>
             <argument>true</argument>
             <argument>%nietonfir_raygun.app_version%</argument>
