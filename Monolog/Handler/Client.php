@@ -10,6 +10,7 @@ class Client extends RaygunClient
     public function setDefaultTags(array $tags)
     {
         $this->defaultTags = $tags;
+        //this is a commit tetst
     }
 
     public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
