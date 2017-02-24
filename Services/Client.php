@@ -38,7 +38,7 @@ class Client extends RaygunClient
     public function SendException($exception, $tags = null, $userCustomData = null, $timestamp = null)
     {
         $tags = $this->mergeTags($tags);
-        parent::SendException($exception, $tags, $userCustomDatam, $timestamp);
+        parent::SendException($exception, $tags, $userCustomData, $timestamp);
     }
 
     public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
