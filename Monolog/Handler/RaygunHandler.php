@@ -55,7 +55,7 @@ class RaygunHandler extends AbstractProcessingHandler
         $exception = isset($ctx['exception']) ? $ctx['exception'] : false;
 
         if ($exception) {
-            if ($this->ignoreHttpExceptions && ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)) {
+            if ($this->ignoreHttpExceptions && ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException)) {
                 return;
             }
 
