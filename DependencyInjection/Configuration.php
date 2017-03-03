@@ -44,9 +44,16 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('debug_mode')
                     ->defaultFalse()
                 ->end() // debug_mode
+                ->arrayNode('tags')
+                    ->prototype('scalar')
+                    ->end()
+                ->end()
                 ->booleanNode('ignore_http_exceptions')
                     ->defaultFalse()
                 ->end() // ignore_http_exceptions
+                ->scalarNode('app_version')
+                    ->defaultNull()
+                ->end()
             ->end()
             ->validate()
                 ->ifTrue(function($v){return $v['debug_mode'];})

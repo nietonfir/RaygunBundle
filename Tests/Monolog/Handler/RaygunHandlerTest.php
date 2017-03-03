@@ -19,9 +19,19 @@ class RaygunHandlerTest extends TestCase
 {
     protected $client;
 
+    public function httpExceptionsProvider()
+    {
+        return array(
+            array(true, $this->getMockBuilder('Symfony\Component\HttpKernel\Exception\NotFoundHttpException')),
+            array(true, $this->getMockBuilder('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException')
+                        ->setConstructorArgs(array('test'))),
+            array(false, $this->getMockBuilder('\Exception'))
+        );
+    }
+
     public function setUp()
     {
-        $this->client = $this->getMockBuilder('Raygun4php\RaygunClient')
+        $this->client = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\Client')
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -40,7 +50,7 @@ class RaygunHandlerTest extends TestCase
         $record = $this->getRecord(Logger::CRITICAL, 'test', array('file' => __FILE__, 'line' => 42));
 
         $this->client->expects($this->once())
-            ->method('sendError')
+            ->method('sendRaygunError')
             ->with(
                 $this->equalTo(Logger::CRITICAL),
                 $this->equalTo('test'),
@@ -59,24 +69,30 @@ class RaygunHandlerTest extends TestCase
         $record = $this->getRecord(Logger::CRITICAL, 'test', array('exception' => $exceptionMock));
 
         $this->client->expects($this->once())
-            ->method('sendException')
+            ->method('sendRaygunException')
             ->with($exceptionMock);
 
         $handler = new RaygunHandler($this->client);
         $handler->handle($record);
     }
 
-    public function testIgnore404()
+    /**
+     * @dataProvider httpExceptionsProvider
+     */
+    public function testIgnoreHttpExceptions($isHttpException, $mockBuilder)
     {
-        $exceptionMock = $this->getMock('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+        $exceptionMock = $mockBuilder->getMock();
 
         $record = $this->getRecord(Logger::CRITICAL, 'test', array('exception' => $exceptionMock));
 
-        $this->client->expects($this->never())
-            ->method('sendException');
+        if (true == $isHttpException) {
+            $this->client->expects($this->never())->method('sendRaygunException');
+        } else {
+            $this->client->expects($this->once())->method('sendRaygunException');
+        }
 
         $handler = new RaygunHandler($this->client);
-        $handler->setIgnore404(true);
+        $handler->setIgnoreHttpExceptions(true);
         $handler->handle($record);
     }
 }

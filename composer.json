@@ -8,6 +8,12 @@
         "exceptions",
         "logging"
     ],
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"/Users/matteo/Documents/prjs/raygunbundle/OnceitRaygunBundle/"
+        }
+    ],
     "homepage": "https://github.com/Nietonfir/RaygunBundle",
     "license": "MIT",
     "authors": [
@@ -20,6 +26,7 @@
     ],
     "require": {
         "php": ">=5.3.9",
+        "nietonfir/raygun-bundle": "dev-dev",
         "symfony/config": "~2.7|~3.0",
         "symfony/dependency-injection": "~2.7|~3.0",
         "symfony/http-kernel": "~2.7|~3.0",

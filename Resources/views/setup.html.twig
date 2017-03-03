@@ -6,4 +6,12 @@
     rg4js('attach', true);
     rg4js('enablePulse', true);
   {% endif %}
+
+  {% if raygun_app_version is defined %}
+  rg4js('setVersion', '{{  raygun_app_version }}');
+  {% endif %}
+
+  {% if default_tags is defined %}
+  rg4js('withTags', {{  default_tags }});
+  {% endif %}
 </script>

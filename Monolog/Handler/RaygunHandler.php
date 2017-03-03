@@ -14,8 +14,7 @@ namespace Nietonfir\RaygunBundle\Monolog\Handler;
 use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
-use Raygun4php\RaygunClient;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nietonfir\RaygunBundle\Services\NietonfirRaygunClient;
 
 class RaygunHandler extends AbstractProcessingHandler
 {
@@ -31,7 +30,7 @@ class RaygunHandler extends AbstractProcessingHandler
      * @param int          $level  The minimum logging level at which this handler will be triggered
      * @param Boolean      $bubble Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct(RaygunClient $client, $level = Logger::ERROR, $bubble = true, $version = null)
+    public function __construct(NietonfirRaygunClient $client, $level = Logger::ERROR, $bubble = true, $version = null)
     {
         $this->client = $client;
 
@@ -59,9 +58,9 @@ class RaygunHandler extends AbstractProcessingHandler
                 return;
             }
 
-            $this->client->sendException($exception);
+            $this->client->sendRaygunException($exception);
         } else {
-            $this->client->sendError($record['level'], $record['message'], $ctx['file'], $ctx['line']);
+            $this->client->sendRaygunError($record['level'], $record['message'], $ctx['file'], $ctx['line']);
         }
     }
 

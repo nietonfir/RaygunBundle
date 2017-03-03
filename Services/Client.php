@@ -3,12 +3,11 @@ namespace Nietonfir\RaygunBundle\Services;
 
 use Raygun4php\RaygunClient;
 
-class Client extends RaygunClient
+class Client extends RaygunClient implements NietonfirRaygunClient
 {
     private $defaultTags = null;
-    protected $version;
 
-    protected function mergeTags ($tags)
+    protected function mergeTags($tags)
     {
         if (is_array($this->defaultTags)) {
             if (is_array($tags)) {
@@ -35,15 +34,15 @@ class Client extends RaygunClient
         parent::SetVersion($version);
     }
 
-    public function SendException($exception, $tags = null, $userCustomData = null, $timestamp = null)
+    public function sendRaygunException($exception, $tags = null, $userCustomData = null, $timestamp = null)
     {
         $tags = $this->mergeTags($tags);
-        parent::SendException($exception, $tags, $userCustomData, $timestamp);
+        $this->SendException($exception, $tags, $userCustomData, $timestamp);
     }
 
-    public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
+    public function sendRaygunError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
     {
         $tags = $this->mergeTags($tags);
-        return parent::SendError($errno, $errstr, $errfile, $errline, $tags, $userCustomData, $timestamp);
+        return $this->SendError($errno, $errstr, $errfile, $errline, $tags, $userCustomData, $timestamp);
     }
 }

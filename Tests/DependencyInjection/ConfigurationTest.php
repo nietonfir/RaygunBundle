@@ -31,12 +31,16 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('async', $config);
         $this->assertArrayHasKey('debug_mode', $config);
         $this->assertArrayHasKey('track_users', $config);
-        $this->assertArrayHasKey('ignore_404', $config);
+        $this->assertArrayHasKey('ignore_http_exceptions', $config);
+        $this->assertArrayHasKey('app_version', $config);
+        $this->assertArrayHasKey('tags', $config);
         $this->assertEquals($key, $config['api_key']);
         $this->assertTrue($config['async']);
         $this->assertFalse($config['debug_mode']);
         $this->assertTrue($config['track_users']);
-        $this->assertFalse($config['ignore_404']);
+        $this->assertNull($config['app_version']);
+        $this->assertFalse($config['ignore_http_exceptions']);
+        $this->assertEmpty($config['tags']);
     }
 
     public function testDebugModeSet()
@@ -73,20 +77,20 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($config['track_users']);
     }
 
-    public function testIgnore404ModeSet()
+    public function testIgnoreHttpExceptionsModeSet()
     {
         $key = '1234567';
 
         $configs = array(
             array(
                 'api_key' => $key,
-                'ignore_404' => true
+                'ignore_http_exceptions' => true
             )
         );
         $config = $this->process($configs);
 
-        $this->assertArrayHasKey('ignore_404', $config);
-        $this->assertTrue($config['ignore_404']);
+        $this->assertArrayHasKey('ignore_http_exceptions', $config);
+        $this->assertTrue($config['ignore_http_exceptions']);
     }
 
     /**
@@ -102,6 +106,38 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             )
         );
         $config = $this->process($configs);
+    }
+
+    public function testValidVersionSet()
+    {
+        $key = '1234567';
+
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'app_version' => '1.0.0'
+            )
+        );
+        $config = $this->process($configs);
+
+        $this->assertArrayHasKey('app_version', $config);
+        $this->assertEquals('1.0.0', $config['app_version']);
+    }
+
+    public function testValidDefaultTagsSet()
+    {
+        $key = '1234567';
+
+        $configs = array(
+            array(
+                'api_key' => $key,
+                'tags' => array('a', 'b', 'c')
+            )
+        );
+        $config = $this->process($configs);
+
+        $this->assertArrayHasKey('tags', $config);
+        $this->assertEquals(array('a', 'b', 'c'), $config['tags']);
     }
 
     /**
