@@ -38,11 +38,19 @@ class RaygunSetupExtension extends \Twig_Extension implements \Twig_Extension_Gl
 
     public function getGlobals()
     {
-        return array(
-            'raygun_api_key' => $this->apiKey,
-            'raygun_app_version' => $this->version,
-            'raygun_default_tags' => $this->defaultTags
+        $globals = array(
+            'raygun_api_key' => $this->apiKey
         );
+
+        if (isset($this->defaultTags) && (0 < count($this->defaultTags))) {
+            $globals["raygun_default_tags"] = $this->defaultTags;
+        }
+
+        if (isset($this->version)) {
+            $globals["raygun_app_version"] = $this->version;
+        }
+
+        return $globals;
     }
 
     public function getName()

@@ -41,6 +41,15 @@
         <service id="nietonfir_raygun.twig_extension" class="%nietonfir_raygun.twig_extension.class%" public="false">
             <argument>%nietonfir_raygun.api_key%</argument>
             <tag name="twig.extension" />
+
+            <call method="setVersion">
+                <argument>%nietonfir_raygun.app_version%</argument>
+            </call>
+
+            <call method="setDefaultTags">
+                <argument>%nietonfir_raygun.tags%</argument>
+            </call>
+
         </service>
     </services>
 </container>
