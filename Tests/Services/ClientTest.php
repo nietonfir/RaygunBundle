@@ -42,6 +42,7 @@ class ClientTest extends TestCase
         $this->myClient->expects($this->once())
             ->method('SendException')
             ->with(1, 'str', 'file', 12, array('a', 'b', 'c', 'd'), null, null);
-        $this->myClient->sendRaygunException(1, 'str', 'file', 12, array('d'));
+        $exceptionMock = $this->getMock('Exception');
+        $this->myClient->sendRaygunException($exceptionMock, 'str', 'file', 12, array('d'));
     }
 }
