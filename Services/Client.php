@@ -37,7 +37,7 @@ class Client extends RaygunClient implements NietonfirRaygunClient
     public function sendRaygunException($exception, $tags = null, $userCustomData = null, $timestamp = null)
     {
         $tags = $this->mergeTags($tags);
-        $this->SendException($exception, $tags, $userCustomData, $timestamp);
+        return $this->SendException($exception, $tags, $userCustomData, $timestamp);
     }
 
     public function sendRaygunError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)

@@ -23,8 +23,7 @@ class ClientTest extends TestCase
     {
         $this->myClient = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\Client')
             ->disableOriginalConstructor()
-            ->setMethods(array('SendError'))
-            ->setMethods(array('SendException'))
+            ->setMethods(array('SendError', 'SendException'))
             ->getMock();
 
         $this->myClient->SetUser($user = 'Test', $firstName = 'Test', $fullName = null, $email = null, $isAnonymous = false, $uuid = null);
