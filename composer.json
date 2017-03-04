@@ -8,12 +8,6 @@
         "exceptions",
         "logging"
     ],
-    "repositories": [
-        {
-            "type":"vcs",
-            "url":"/Users/matteo/Documents/prjs/raygunbundle/OnceitRaygunBundle/"
-        }
-    ],
     "homepage": "https://github.com/Nietonfir/RaygunBundle",
     "license": "MIT",
     "authors": [
