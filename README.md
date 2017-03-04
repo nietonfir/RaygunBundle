@@ -26,8 +26,6 @@ Add your raygun api-key along with the optional keys in parameters.yml:
 parameters:
     […]
     raygun_api_key: <your_raygun_api-key>
-    nietonfir_raygun.app_version: <version>
-    nietonfir_raygun.tags: [<tags>]
 ```
 
 - `nietonfir_raygun.app_version` automatically sets the application version in order not to set it progammatically;    
@@ -100,4 +98,6 @@ nietonfir_raygun:
     async: true                     # Sets the [async configuration option](https://github.com/MindscapeHQ/raygun4php#sending-method---asyncsync) on the Raygun client.
     debug_mode: false               # Sets the [debug configuration option](https://github.com/MindscapeHQ/raygun4php#debug-mode) on the Raygun client.
     ignore_http_exceptions: false   # Whether to send Http exceptions to Raygun
+    app_version:                    # Attach a specific version to your errors 
+    tags: []                        # Send default tags and have more control on your errors (i.e. split among apps)
 ```
