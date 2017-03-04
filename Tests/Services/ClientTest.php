@@ -26,6 +26,8 @@ class ClientTest extends TestCase
             ->setMethods(array('SendError'))
             ->setMethods(array('SendException'))
             ->getMock();
+
+        $this->myClient->SetUser($user = 'Test', $firstName = 'Test', $fullName = null, $email = null, $isAnonymous = false, $uuid = null);
     }
 
     public function testSendTagsError()
