@@ -24,6 +24,7 @@ class ClientTest extends TestCase
         $this->myClient = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\Client')
             ->disableOriginalConstructor()
             ->setMethods(array('SendError'))
+            ->setMethods(array('SendException'))
             ->getMock();
     }
 
@@ -39,10 +40,10 @@ class ClientTest extends TestCase
     public function testSendTagsException()
     {
         $this->myClient->setDefaultTags(array('a', 'b', 'c'));
+        $exceptionMock = $this->getMock('Exception');
         $this->myClient->expects($this->once())
             ->method('SendException')
-            ->with(1, 'str', 'file', 12, array('a', 'b', 'c', 'd'), null, null);
-        $exceptionMock = $this->getMock('Exception');
-        $this->myClient->sendRaygunException($exceptionMock, 'str', 'file', 12, array('d'));
+            ->with($exceptionMock, array('a', 'b', 'c', 'd'), null, null);
+        $this->myClient->sendRaygunException($exceptionMock, array('d'), null, null);
     }
 }
