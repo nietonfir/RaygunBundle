@@ -1,14 +1,13 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="raygun.client.class">Raygun4php\RaygunClient</parameter>
+        <parameter key="raygun.client.class">Nietonfir\RaygunBundle\Services\Client</parameter>
         <parameter key="nietonfir_raygun.monolog_handler.class">Nietonfir\RaygunBundle\Monolog\Handler\RaygunHandler</parameter>
         <parameter key="nietonfir_raygun.twig_extension.class">Nietonfir\RaygunBundle\Twig\RaygunSetupExtension</parameter>
-
         <parameter key="nietonfir_raygun.monolog_handler.level" type="constant">Monolog\Logger::ERROR</parameter>
     </parameters>
 
@@ -21,6 +20,16 @@
             <argument>%nietonfir_raygun.async%</argument>
             <argument>%nietonfir_raygun.debug_mode%</argument>
             <argument>%nietonfir_raygun.disable_user_tracking%</argument>
+
+            <call method="setVersion">
+                <argument>%nietonfir_raygun.app_version%</argument>
+            </call>
+
+            <call method="setDefaultTags">
+                <argument>%nietonfir_raygun.tags%</argument>
+            </call>
+
+
         </service>
 
         <service id="nietonfir_raygun.monolog_handler" class="%nietonfir_raygun.monolog_handler.class%" public="false">
@@ -32,6 +41,15 @@
         <service id="nietonfir_raygun.twig_extension" class="%nietonfir_raygun.twig_extension.class%" public="false">
             <argument>%nietonfir_raygun.api_key%</argument>
             <tag name="twig.extension" />
+
+            <call method="setVersion">
+                <argument>%nietonfir_raygun.app_version%</argument>
+            </call>
+
+            <call method="setDefaultTags">
+                <argument>%nietonfir_raygun.tags%</argument>
+            </call>
+
         </service>
     </services>
 </container>

@@ -31,26 +31,33 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('api_key')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end() // api_key
-                ->booleanNode('async')
-                    ->defaultTrue()
-                ->end() // async
-                ->booleanNode('track_users')
-                    ->defaultTrue()
-                ->end() // track_users
-                ->booleanNode('debug_mode')
-                    ->defaultFalse()
-                ->end() // debug_mode
-                ->booleanNode('ignore_404')
-                    ->defaultFalse()
-                ->end() // ignore_404
+            ->scalarNode('api_key')
+            ->isRequired()
+            ->cannotBeEmpty()
+            ->end() // api_key
+            ->booleanNode('async')
+            ->defaultTrue()
+            ->end() // async
+            ->booleanNode('track_users')
+            ->defaultTrue()
+            ->end() // track_users
+            ->booleanNode('debug_mode')
+            ->defaultFalse()
+            ->end() // debug_mode
+            ->arrayNode('tags')
+            ->prototype('scalar')
+            ->end()
+            ->end()
+            ->booleanNode('ignore_http_exceptions')
+            ->defaultFalse()
+            ->end() // ignore_http_exceptions
+            ->scalarNode('app_version')
+            ->defaultNull()
+            ->end()
             ->end()
             ->validate()
-                ->ifTrue(function($v){return $v['debug_mode'];})
-                ->then(function($v){$v['async'] = false;return $v;})
+            ->ifTrue(function($v){return $v['debug_mode'];})
+            ->then(function($v){$v['async'] = false;return $v;})
             ->end();
 
         return $treeBuilder;

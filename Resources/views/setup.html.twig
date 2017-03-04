@@ -1,9 +1,17 @@
 {# NietonfirRaygunBundle/Resources/views/setup.html.twig #}
 <script type="text/javascript">
-  rg4js('apiKey', '{{ raygun_api_key }}');
-  rg4js('enableCrashReporting', true);
-  {% if enable_pulse|default(false) %}
+    rg4js('apiKey', '{{ raygun_api_key }}');
+    rg4js('enableCrashReporting', true);
+    {% if enable_pulse|default(false) %}
     rg4js('attach', true);
     rg4js('enablePulse', true);
-  {% endif %}
+    {% endif %}
+
+    {% if raygun_app_version is defined %}
+    rg4js('setVersion', '{{  raygun_app_version | raw }}');
+    {% endif %}
+
+    {% if raygun_default_tags is defined %}
+    rg4js('withTags', {{ raygun_default_tags | json_encode() | raw }});
+    {% endif %}
 </script>

@@ -34,8 +34,11 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(true, 'nietonfir_raygun.async');
         $this->assertParameter(false, 'nietonfir_raygun.debug_mode');
         $this->assertParameter(false, 'nietonfir_raygun.disable_user_tracking');
+        $this->assertParameter(null, 'nietonfir_raygun.app_version');
+        $this->assertParameter(array(), 'nietonfir_raygun.tags');
         $this->assertHasDefinition('nietonfir_raygun.monolog_handler');
         $this->assertHasDefinition('nietonfir_raygun.twig_extension');
+        $this->assertDoesNotHaveCall('nietonfir_raygun.monolog_handler', 'setIgnoreHttpExceptions');
     }
 
     public function testCustomSettings()
@@ -44,6 +47,7 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $loader = new NietonfirRaygunExtension();
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
+        $client = $this->configuration->get('nietonfir_raygun.client');
 
         $this->assertAlias('nietonfir_raygun.client', 'raygun.client');
         $this->assertAlias('nietonfir_raygun.monolog_handler', 'raygun.handler');
@@ -53,7 +57,13 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(true, 'nietonfir_raygun.disable_user_tracking');
         $this->assertHasDefinition('nietonfir_raygun.monolog_handler');
         $this->assertHasDefinition('nietonfir_raygun.twig_extension');
-        $this->assertHasCall('nietonfir_raygun.monolog_handler', 'setIgnore404');
+        $this->assertParameter('1.0.0', 'nietonfir_raygun.app_version');
+        $this->assertParameter(array('a', 'b', 'c'), 'nietonfir_raygun.tags');
+        $this->assertHasCall('nietonfir_raygun.monolog_handler', 'setIgnoreHttpExceptions');
+        $this->assertHasCall('nietonfir_raygun.client', 'setVersion');
+        $this->assertHasCall('nietonfir_raygun.client', 'setDefaultTags');
+        $this->assertEquals('1.0.0', $this->getObjAttribute($client, 'version'));
+        $this->assertEquals(array('a', 'b', 'c'), $this->getObjAttribute($client, 'defaultTags'));
     }
 
     /**
@@ -82,7 +92,9 @@ api_key: 987655
 async: false
 debug_mode: true
 track_users: false
-ignore_404: true
+ignore_http_exceptions: true
+app_version: 1.0.0
+tags: ['a', 'b', 'c']
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);
@@ -120,8 +132,23 @@ EOF;
         $this->assertTrue($definition->hasMethodCall($method));
     }
 
+    private function assertDoesNotHaveCall($id, $method)
+    {
+        $definition = $this->configuration->getDefinition($id);
+        $this->assertFalse($definition->hasMethodCall($method));
+    }
+
     protected function tearDown()
     {
         unset($this->configuration);
+    }
+
+    protected function & getObjAttribute($object, $property)
+    {
+        $value = & \Closure::bind(function & () use ($property) {
+            return $this->$property;
+        }, $object, $object)->__invoke();
+
+        return $value;
     }
 }

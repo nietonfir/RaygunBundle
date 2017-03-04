@@ -4,3 +4,4 @@ phpunit.xml
 coverage
 bin
 vendor/*
+.idea/
