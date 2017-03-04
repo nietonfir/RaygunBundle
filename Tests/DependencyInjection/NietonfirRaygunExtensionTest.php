@@ -143,12 +143,11 @@ EOF;
         unset($this->configuration);
     }
 
-    protected function & getObjAttribute($object, $property)
+    protected function getObjAttribute($object, $property)
     {
-        $value = & \Closure::bind(function & () use ($property) {
-            return $this->$property;
-        }, $object, $object)->__invoke();
+        $reflection = new \ReflectionProperty('Nietonfir\RaygunBundle\Services\Client', $property);
+        $reflection->setAccessible(true);
 
-        return $value;
+        return $reflection->getValue($object);
     }
 }
