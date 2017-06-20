@@ -19,7 +19,7 @@ $ composer require nietonfir/raygun-bundle
 Configuration
 -------------
 
-Add your raygun api-key in parameters.yml:
+Add your raygun api-key along with the optional keys in parameters.yml:
 
 ```yaml
 # app/config/parameters.yml
@@ -27,6 +27,10 @@ parameters:
     […]
     raygun_api_key: <your_raygun_api-key>
 ```
+
+- `nietonfir_raygun.app_version` automatically sets the application version in order not to set it progammatically;    
+- `nietonfir_raygun.tags` the error/exception report will have these tags, along with the optional tags explicitly set. 
+
 
 Update `config.yml` with the following configuration:
 
@@ -90,8 +94,10 @@ Configuration Reference
 ```yaml
 # app/config/config.yml
 nietonfir_raygun:
-    api_key: %raygun_api_key% # Your Raygun API key, available under "Application Settings" in your Raygun account.
-    async: true               # Sets the [async configuration option](https://github.com/MindscapeHQ/raygun4php#sending-method---asyncsync) on the Raygun client.
-    debug_mode: false         # Sets the [debug configuration option](https://github.com/MindscapeHQ/raygun4php#debug-mode) on the Raygun client.
-    ignore_404: false         # Whether to send 404 exceptions (NotFoundHttpException) to Raygun
+    api_key: %raygun_api_key%       # Your Raygun API key, available under "Application Settings" in your Raygun account.
+    async: true                     # Sets the [async configuration option](https://github.com/MindscapeHQ/raygun4php#sending-method---asyncsync) on the Raygun client.
+    debug_mode: false               # Sets the [debug configuration option](https://github.com/MindscapeHQ/raygun4php#debug-mode) on the Raygun client.
+    ignore_http_exceptions: false   # Whether to send Http exceptions to Raygun
+    app_version:                    # Attach a specific version to your errors 
+    tags: []                        # Send default tags and have more control on your errors (i.e. split among apps)
 ```

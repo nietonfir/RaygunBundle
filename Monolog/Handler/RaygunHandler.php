@@ -14,8 +14,7 @@ namespace Nietonfir\RaygunBundle\Monolog\Handler;
 use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
-use Raygun4php\RaygunClient;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nietonfir\RaygunBundle\Services\NietonfirRaygunClient;
 
 class RaygunHandler extends AbstractProcessingHandler
 {
@@ -24,14 +23,14 @@ class RaygunHandler extends AbstractProcessingHandler
     /**
      * @var bool
      */
-    private $ignore404 = false;
+    private $ignoreHttpExceptions = false;
 
     /**
      * @param RaygunClient $client The Raygun.io client responsible for sending errors/exceptions to Raygun
      * @param int          $level  The minimum logging level at which this handler will be triggered
      * @param Boolean      $bubble Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct(RaygunClient $client, $level = Logger::ERROR, $bubble = true)
+    public function __construct(NietonfirRaygunClient $client, $level = Logger::ERROR, $bubble = true, $version = null)
     {
         $this->client = $client;
 
@@ -39,11 +38,11 @@ class RaygunHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @param bool $ignore404
+     * @param bool $ignoreHttpExceptions
      */
-    public function setIgnore404($ignore404)
+    public function setIgnoreHttpExceptions($ignoreHttpExceptions)
     {
-        $this->ignore404 = (bool) $ignore404;
+        $this->ignoreHttpExceptions = (bool) $ignoreHttpExceptions;
     }
 
     /**
@@ -55,13 +54,13 @@ class RaygunHandler extends AbstractProcessingHandler
         $exception = isset($ctx['exception']) ? $ctx['exception'] : false;
 
         if ($exception) {
-            if ($this->ignore404 && $exception instanceof NotFoundHttpException) {
+            if ($this->ignoreHttpExceptions && ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException)) {
                 return;
             }
 
-            $this->client->sendException($exception);
+            $this->client->sendRaygunException($exception);
         } else {
-            $this->client->sendError($record['level'], $record['message'], $ctx['file'], $ctx['line']);
+            $this->client->sendRaygunError($record['level'], $record['message'], $ctx['file'], $ctx['line']);
         }
     }
 
