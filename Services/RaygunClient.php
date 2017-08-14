@@ -1,9 +1,19 @@
 <?php
+
+/*
+ * This file is part of the Raygunbundle package.
+ *
+ * (c) nietonfir <nietonfir@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Nietonfir\RaygunBundle\Services;
 
-use Raygun4php\RaygunClient;
+use Raygun4php\RaygunClient as OriginalRaygunClient;
 
-class Client extends RaygunClient implements NietonfirRaygunClient
+class RaygunClient extends OriginalRaygunClient implements NietonfirRaygunClient
 {
     private $defaultTags = null;
 

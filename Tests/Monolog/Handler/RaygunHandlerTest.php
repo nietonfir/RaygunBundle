@@ -31,7 +31,7 @@ class RaygunHandlerTest extends TestCase
 
     public function setUp()
     {
-        $this->client = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\Client')
+        $this->client = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\RaygunClient')
             ->disableOriginalConstructor()
             ->getMock();
     }
