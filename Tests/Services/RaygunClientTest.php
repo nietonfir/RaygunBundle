@@ -13,7 +13,7 @@ namespace Nietonfir\RaygunBundle\Tests\Services;
 
 use Monolog\TestCase;
 
-class ClientTest extends TestCase
+class RaygunClientTest extends TestCase
 {
     protected $raygunClient;
     protected $myClient;
@@ -21,7 +21,7 @@ class ClientTest extends TestCase
 
     public function setUp()
     {
-        $this->myClient = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\Client')
+        $this->myClient = $this->getMockBuilder('Nietonfir\RaygunBundle\Services\RaygunClient')
             ->disableOriginalConstructor()
             ->setMethods(array('SendError', 'SendException'))
             ->getMock();

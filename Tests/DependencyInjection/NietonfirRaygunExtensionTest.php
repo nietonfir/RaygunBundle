@@ -48,7 +48,6 @@ class NietonfirRaygunExtensionTest extends \PHPUnit_Framework_TestCase
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
         $client = $this->configuration->get('nietonfir_raygun.client');
-
         $this->assertAlias('nietonfir_raygun.client', 'raygun.client');
         $this->assertAlias('nietonfir_raygun.monolog_handler', 'raygun.handler');
         $this->assertParameter('987655', 'nietonfir_raygun.api_key');
@@ -145,7 +144,7 @@ EOF;
 
     protected function getObjAttribute($object, $property)
     {
-        $reflection = new \ReflectionProperty('Nietonfir\RaygunBundle\Services\Client', $property);
+        $reflection = new \ReflectionProperty('Nietonfir\RaygunBundle\Services\RaygunClient', $property);
         $reflection->setAccessible(true);
 
         return $reflection->getValue($object);

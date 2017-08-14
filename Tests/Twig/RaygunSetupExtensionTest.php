@@ -45,7 +45,8 @@ class RaygunSetupExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 'raygun_api_key' => $apiKey,
-                'raygun_app_version' => '1.0.0'),
+                'raygun_app_version' => '1.0.0'
+            ),
             $extension->getGlobals());
     }
 

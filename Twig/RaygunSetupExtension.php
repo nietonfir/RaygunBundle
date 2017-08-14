@@ -43,11 +43,11 @@ class RaygunSetupExtension extends \Twig_Extension implements \Twig_Extension_Gl
         );
 
         if (isset($this->defaultTags) && (0 < count($this->defaultTags))) {
-            $globals["raygun_default_tags"] = $this->defaultTags;
+            $globals['raygun_default_tags'] = $this->defaultTags;
         }
 
         if (isset($this->version)) {
-            $globals["raygun_app_version"] = $this->version;
+            $globals['raygun_app_version'] = $this->version;
         }
 
         return $globals;
